@@ -1,41 +1,19 @@
-# name: CI/CD Pipeline
-# on:
-#   push:
-#     branches:
-#       - main
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-
-#       - name: Build Docker images
-#         run: docker-compose build
-
-#       - name: Push Docker images
-#         run: |
-#           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#           docker-compose push
-          
-
 name: CI/CD Pipeline
-
 on:
   push:
     branches:
       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
-      - name: Simulate Docker build
-        run: echo "Docker build completed successfully!"
+      - name: Build Docker images
+        run: docker-compose build
 
-      - name: Simulate Docker push
-        run: echo "Docker push completed successfully!"
+      - name: Push Docker images
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          docker-compose push
